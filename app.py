@@ -24,6 +24,10 @@ redis_client = redis.StrictRedis(
     ssl=redis_ssl
 )
 
+@app.route("/")
+def home():
+    return "this is CRM home"
+
 @app.route("/test")
 def test():
     redis_client.set("name", "tom")
