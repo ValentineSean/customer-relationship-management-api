@@ -3,9 +3,16 @@ from app import socketio
 
 # JSON File
 from read_json import json_data
+from read_json import write_json
 
 # WEB SOCKET EVENTS
 @socketio.on("get-issues")
 def get_issues():
     print(f"received get issues event")
     emit("get-issues-response", json_data)
+
+@socketio.on("add-issue")
+def add_issue():
+    print(f"received add issue event")
+    write_json()
+    emit("add-issue-response", json_data)
