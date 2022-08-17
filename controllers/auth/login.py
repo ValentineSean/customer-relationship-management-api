@@ -1,10 +1,10 @@
-from flask import jsonify
+from flask import Blueprint, jsonify
 
-from . import auth_blueprint
+from app import socketio
 
-from ...main.main import socketio
+login_blueprint = Blueprint("login_blueprint", __name__)
 
-@auth_blueprint.route("/login")
+@login_blueprint.route("/login")
 def login():
     return "This is login page"
 
