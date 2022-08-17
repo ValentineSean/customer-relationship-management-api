@@ -1,4 +1,4 @@
-from .main.main import app, socketio
+from main.main import app, socketio
 # from main.main import app, socketio
 # import main
 
