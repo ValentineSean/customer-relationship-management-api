@@ -14,6 +14,7 @@ CORS(app)
 
 # BLUEPRINTS
 from controllers.auth.login import login_blueprint
+from controllers.auth.register import register_blueprint
 
 # app.config["JWT_SECRET_KEY"] = jwt_secret_key
 # app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 604800
@@ -21,6 +22,7 @@ from controllers.auth.login import login_blueprint
 
 def create_app():
     app.register_blueprint(login_blueprint)
+    app.register_blueprint(register_blueprint)
 
     return app
 
