@@ -9,7 +9,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "tjudiol!mèlkrif"
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+# socketio.init_app(app)
+
 CORS(app)
 
 # BLUEPRINTS
@@ -29,5 +32,5 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    # app.run(debug=True)
-    socketio.run(app, debug=True)
+    app.run(debug=True)
+    # socketio.run(app, debug=True)
