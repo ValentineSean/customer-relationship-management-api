@@ -1,12 +1,11 @@
-import imp
 from flask import Flask, jsonify
 from flask_cors import CORS
 
-# Configurations
+# CONFIGURATIONS
 # from ..config.security import jwt
 # from ..config.security import jwt_secret_key
 
-# Blueprints
+# BLUEPRINTS
 from ..controllers.auth import auth_blueprint
 
 app = Flask(__name__)
