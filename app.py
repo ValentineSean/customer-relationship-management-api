@@ -7,8 +7,14 @@ from flask_cors import CORS
 # from ..config.security import jwt_secret_key
 
 # BLUEPRINTS
+
+# Auth
 from controllers.auth.login import login_blueprint
 from controllers.auth.register import register_blueprint
+
+# Issues
+from controllers.issues.get_issues import get_issues_blueprint
+from controllers.issues.add_issue import add_issue_blueprint
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "tjudiol!mèlkrif"
@@ -26,8 +32,13 @@ from events import queuing_events
 # jwt.init_app(app)
 
 def create_app():
+    # Auth
     app.register_blueprint(login_blueprint)
     app.register_blueprint(register_blueprint)
+
+    # Issues
+    app.register_blueprint(get_issues_blueprint)
+    app.register_blueprint(add_issue_blueprint)
 
     socketio.init_app(app, cors_allowed_origins="*")
 
