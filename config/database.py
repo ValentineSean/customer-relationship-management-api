@@ -37,6 +37,7 @@ redis_ssl = os.getenv("AZURE_REDIS_SSL")
 redis_stack_username = os.getenv("REDIS_STACK_USERNAME")
 redis_stack_password = os.getenv("REDIS_STACK_PASSWORD")
 redis_stack_host = os.getenv("REDIS_STACK_HOST")
+redis_stack_port = os.getenv("REDIS_STACK_PORT")
 redis_stack_database = os.getenv("REDIS_STACK_DATABASE")
 
 redis_client = redis.StrictRedis(
@@ -56,6 +57,7 @@ redis_client_two = redis.Redis(
 
 redis_client_three = redis.Redis(
     host=redis_stack_host,
+    port=redis_stack_port,
     db=redis_stack_database,
     password=redis_stack_password
 )
