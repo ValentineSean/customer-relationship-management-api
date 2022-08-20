@@ -12,6 +12,9 @@ from flask_cors import CORS
 from controllers.auth.login import login_blueprint
 from controllers.auth.register_user import register_user_blueprint
 
+# Users
+from controllers.users.get_users import get_users_blueprint
+
 # Issues
 from controllers.issues.get_issues import get_issues_blueprint
 from controllers.issues.add_issue import add_issue_blueprint
@@ -35,6 +38,9 @@ def create_app():
     # Auth
     app.register_blueprint(login_blueprint)
     app.register_blueprint(register_user_blueprint)
+
+    # Users
+    app.register_blueprint(get_users_blueprint)
 
     # Issues
     app.register_blueprint(get_issues_blueprint)

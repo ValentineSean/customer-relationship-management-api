@@ -39,5 +39,4 @@ def add_issue():
 
     except:
         traceback.print_exc()
-        
         return "Failed to add new issue"
