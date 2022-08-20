@@ -1,10 +1,10 @@
-import datetime
+from redis_om import JsonModel, Migrator
 
-from redis_om import HashModel
-
-class Issue(HashModel):
+class Issue(JsonModel):
     subject: str
     description: str
-    handlers: str
+    handlers: list
     issue_status: str
     created_at: str
+
+Migrator().run()

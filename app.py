@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 # Auth
 from controllers.auth.login import login_blueprint
-from controllers.auth.register import register_blueprint
+from controllers.auth.register_user import register_user_blueprint
 
 # Issues
 from controllers.issues.get_issues import get_issues_blueprint
@@ -34,7 +34,7 @@ from events import queuing_events
 def create_app():
     # Auth
     app.register_blueprint(login_blueprint)
-    app.register_blueprint(register_blueprint)
+    app.register_blueprint(register_user_blueprint)
 
     # Issues
     app.register_blueprint(get_issues_blueprint)
