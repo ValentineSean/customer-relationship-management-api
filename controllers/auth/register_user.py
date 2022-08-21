@@ -23,15 +23,18 @@ def register_user():
     
     try:
         new_user = User(
-            first_name = first_name,
-            last_name = last_name,
-            role = role,
-            created_at = created_at
+            **{
+                "first_name": first_name,
+                "last_name": last_name,
+                "role": role,
+                "created_at": created_at
+            }
         )
 
         new_user.save()
 
         print(f"Added user: {new_user}")
+        print(f"Added user type: {type(new_user)}")
         print(f"Added user primary key: {new_user.pk}")
         return "This is Register user page"
 
