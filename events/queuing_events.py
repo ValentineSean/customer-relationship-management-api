@@ -6,14 +6,12 @@ from app import socketio
 from config.database import redis_client
 
 # JSON File
-from read_json import json_data
-from read_json import write_json
 
 # WEB SOCKET EVENTS
 @socketio.on("get-issues")
 def get_issues():
     print(f"received get issues event")
-    emit("get-issues-response", json_data)
+    emit("get-issues-response", {})
 
 @socketio.on("add-issue")
 def add_issue():
@@ -34,4 +32,4 @@ def add_issue():
 
     added_issue = redis_client.rpush("issues", issue)
     print(added_issue)
-    emit("add-issue-response", json_data)
+    emit("add-issue-response", {})
