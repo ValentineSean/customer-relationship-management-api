@@ -24,35 +24,23 @@ def register_user():
     created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
     
     try:
-        # new_user = User(
-        #     **{
-        #         "first_name": first_name,
-        #         "last_name": last_name,
-        #         "role": role,
-        #         "created_at": created_at
-        #     }
-        # )
-
         new_user = User(
             first_name=first_name,
             last_name=last_name,
             role=role,
             created_at=created_at,
+            record_status="ALIVE",
             db_write = True
         )
-
-        # new_user.db_write = False
         
         delattr(new_user, "db_write")
 
         new_user.save()
 
         # new_user = User.get(new_user.pk)
-
-        # print(f"Added user: {new_user}")
         
         return jsonify({
-            "status_code": "",
+            "status_code": "200",
             "status": "success",
             "message": "user_registered_ok"
         })
@@ -60,4 +48,8 @@ def register_user():
     except:
         traceback.print_exc()
         
-        return "Failed to register user"
+        return jsonify({
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_register_user",
+        })
