@@ -17,7 +17,7 @@ def update_user():
     role = user["role"]
     
     try:
-        updated_user = User.get(user_id)
+        updated_user = User(db_write=True).get(user_id)
 
         updated_user.first_name = first_name
         updated_user.last_name = last_name
