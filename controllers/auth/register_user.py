@@ -1,8 +1,10 @@
+import json
 import traceback
 import pytz
 
 from datetime import datetime
 from flask import Blueprint, request, jsonify
+from bson.json_util import dumps
 from models.users import User
 
 register_user_blueprint = Blueprint("register_user_blueprint", __name__)
@@ -22,21 +24,38 @@ def register_user():
     created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
     
     try:
+        # new_user = User(
+        #     **{
+        #         "first_name": first_name,
+        #         "last_name": last_name,
+        #         "role": role,
+        #         "created_at": created_at
+        #     }
+        # )
+
         new_user = User(
-            **{
-                "first_name": first_name,
-                "last_name": last_name,
-                "role": role,
-                "created_at": created_at
-            }
+            first_name=first_name,
+            last_name=last_name,
+            role=role,
+            created_at=created_at,
+            db_write = True
         )
+
+        # new_user.db_write = False
+        
+        delattr(new_user, "db_write")
 
         new_user.save()
 
-        print(f"Added user: {new_user}")
-        print(f"Added user type: {type(new_user)}")
-        print(f"Added user primary key: {new_user.pk}")
-        return "This is Register user page"
+        # new_user = User.get(new_user.pk)
+
+        # print(f"Added user: {new_user}")
+        
+        return jsonify({
+            "status_code": "",
+            "status": "success",
+            "message": "user_registered_ok"
+        })
 
     except:
         traceback.print_exc()
