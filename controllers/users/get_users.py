@@ -12,7 +12,7 @@ get_users_blueprint = Blueprint("get_users_blueprint", __name__)
 @get_users_blueprint.route("/get-users")
 def get_users():
     try:
-        users = User.find(record_status="ALIVE").all()
+        users = User.find(User.record_status=="ALIVE").all()
         
         return jsonify({
             "status_code": "200",

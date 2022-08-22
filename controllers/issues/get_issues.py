@@ -8,10 +8,20 @@ get_issues_blueprint = Blueprint("get_issues_blueprint", __name__)
 @get_issues_blueprint.route("/get-issues")
 def get_issues():
     try:
-        issues = Issue.find().all()
-        print(f"Issues: {issues}")
-        return "This is get issues page"
+        issues = Issue.find(Issue.record_status=="ALIVE").all()
+        
+        return jsonify({
+            "status_code": "200",
+            "status": "success",
+            "message": "issues_retrieved_ok",
+            "data": issues
+        })
 
     except:
         traceback.print_exc()
-        return "Failed to GET issues"
+        return jsonify({
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_retrieve_issues",
+            "data": {},
+        })

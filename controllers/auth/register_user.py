@@ -47,7 +47,6 @@ def register_user():
 
     except:
         traceback.print_exc()
-        
         return jsonify({
             "status_code": "500",
             "status": "error",

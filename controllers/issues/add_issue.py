@@ -25,18 +25,29 @@ def add_issue():
         new_issue = Issue(
             subject = subject,
             description = desciption,
-            sender = sender,
-            handlers = [],
             issue_status = "OPEN",
-            created_at = created_at
+            sender = sender,
+            created_at = created_at,
+            record_status="ALIVE",
+            db_write = True
         )
+
+        delattr(new_issue, "db_write")
 
         new_issue.save()
 
-        print(f"Added issue: {new_issue}")
-        print(f"Added issue primary key: {new_issue.pk}")
-        return "This is add issue page"
+        # new_issue = Issue.get(new_issue.pk)
+
+        return jsonify({
+            "status_code": "200",
+            "status": "success",
+            "message": "issue_added_ok"
+        })
 
     except:
         traceback.print_exc()
-        return "Failed to add new issue"
+        return jsonify({
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_add_issue",
+        })
