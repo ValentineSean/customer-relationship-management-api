@@ -1,6 +1,6 @@
 import json
 
-f = open("my_file.json")
+f = open("")
 
 json_data = json.load(f)
 
@@ -12,7 +12,7 @@ my_dict = {
     "issue_status": "OPEN"
 }
 
-def write_json(filename="my_file.json"):
+def write_json(filename=""):
     with open(filename, "r+") as f:
         file_data = json.load(f)
 
