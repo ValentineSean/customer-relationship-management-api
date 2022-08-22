@@ -4,7 +4,6 @@ import pytz
 
 from datetime import datetime
 from flask import Blueprint, request, jsonify
-from bson.json_util import dumps
 from models.users import User
 
 register_user_blueprint = Blueprint("register_user_blueprint", __name__)

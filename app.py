@@ -14,6 +14,7 @@ from controllers.auth.register_user import register_user_blueprint
 
 # Users
 from controllers.users.get_users import get_users_blueprint
+from controllers.users.update_user import update_user_blueprint
 
 # Issues
 from controllers.issues.get_issues import get_issues_blueprint
@@ -41,6 +42,7 @@ def create_app():
 
     # Users
     app.register_blueprint(get_users_blueprint)
+    app.register_blueprint(update_user_blueprint)
 
     # Issues
     app.register_blueprint(get_issues_blueprint)
