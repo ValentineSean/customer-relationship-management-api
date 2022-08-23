@@ -37,5 +37,5 @@ def get_users():
             "status_code": "500",
             "status": "error",
             "message": "failed_to_retrieve_users",
-            "data": {},
+            "data": [],
         })

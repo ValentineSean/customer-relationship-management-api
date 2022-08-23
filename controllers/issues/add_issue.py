@@ -11,8 +11,10 @@ add_issue_blueprint = Blueprint("add_issue_blueprint", __name__)
 def add_issue():
     issue = request.json
     subject = issue["subject"]
-    desciption = issue["description"]
+    description = issue["description"]
     sender = issue["sender"]
+    issue_status = "OPEN"
+    record_status = "ALIVE"
 
     zone = "Africa/Harare"
     timezone = pytz.timezone(zone)
@@ -24,24 +26,36 @@ def add_issue():
     try:
         new_issue = Issue(
             subject = subject,
-            description = desciption,
-            issue_status = "OPEN",
+            description = description,
+            issue_status = issue_status,
             sender = sender,
             created_at = created_at,
-            record_status="ALIVE",
-            db_write = True
+            record_status=record_status,
         )
 
-        delattr(new_issue, "db_write")
+        # delattr(new_issue, "db_write")
+
+        issue_pk = new_issue.pk
 
         new_issue.save()
+
+        new_issue_dict = {
+            "pk": issue_pk,
+            "subject": subject,
+            "description": description,
+            "issue_status": issue_status,
+            "sender": sender,
+            "created_at": created_at,
+            "record_status": record_status,
+        }
 
         # new_issue = Issue.get(new_issue.pk)
 
         return jsonify({
             "status_code": "200",
             "status": "success",
-            "message": "issue_added_ok"
+            "message": "issue_added_ok",
+            "data": new_issue_dict,
         })
 
     except:
