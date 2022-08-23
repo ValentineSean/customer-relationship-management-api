@@ -1,5 +1,5 @@
 import json
-import jsons
+import simplejson as j
 import traceback
 
 from flask import Blueprint, jsonify
@@ -13,12 +13,22 @@ get_users_blueprint = Blueprint("get_users_blueprint", __name__)
 def get_users():
     try:
         users = User.find(User.record_status=="ALIVE").all()
+        # users = j.dumps(users, iterable_as_array=True)
+        users_list = []
+
+        for user in users:
+            user_dict = {}
+            
+            for x in user:
+                user_dict[x[0]] = x[1]
+                
+            users_list.append(user_dict)
         
         return jsonify({
             "status_code": "200",
             "status": "success",
             "message": "users_retrieved_ok",
-            "data": users
+            "data": users_list
         })
 
     except:
