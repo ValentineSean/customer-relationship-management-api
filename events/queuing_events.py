@@ -1,9 +1,11 @@
 import json
-import uuid
+import traceback
+import pytz
 
+from datetime import datetime
 from flask_socketio import emit, join_room, leave_room
 from app import socketio
-from config.database import redis_client
+from models.issues import Issue
 
 # JSON File
 
@@ -14,22 +16,62 @@ def get_issues():
     emit("get-issues-response", {})
 
 @socketio.on("add-issue")
-def add_issue():
-    issue_id = uuid.uuid4().hex
-    
-    issue = {
-        "id": issue_id,
-        "subject": "SIM card is not working",
-        "description": "Maybe its because ...",
-        "handlers": [6, 7],
-        "issue_status": "OPEN",
-        "created_at": "2022-08-12"
-    }
+def add_issue(issue):
+    subject = issue["subject"]
+    description = issue["description"]
+    sender = issue["sender"]
+    issue_status = "OPEN"
+    record_status = "ALIVE"
 
-    issue = json.dumps(issue)
+    zone = "Africa/Harare"
+    timezone = pytz.timezone(zone)
 
-    print(f"received add issue event")
+    created_at_naive = datetime.now()
+    created_at = created_at_naive.astimezone(timezone)
+    created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
 
-    added_issue = redis_client.rpush("issues", issue)
-    print(added_issue)
-    emit("add-issue-response", {})
+    try:
+        new_issue = Issue(
+            subject = subject,
+            description = description,
+            issue_status = issue_status,
+            sender = sender,
+            created_at = created_at,
+            record_status=record_status,
+        )
+
+        # delattr(new_issue, "db_write")
+
+        issue_pk = new_issue.pk
+
+        new_issue.save()
+
+        new_issue_dict = {
+            "status_code": "200",
+            "status": "success",
+            "message": "issue_added_ok",
+            "data": {
+                "pk": issue_pk,
+                "subject": subject,
+                "description": description,
+                "issue_status": issue_status,
+                "sender": sender,
+                "created_at": created_at,
+                "record_status": record_status,
+            }
+        }
+
+        print(f"received add issue event")
+
+        socketio.emit("add-issue-response", new_issue_dict)
+
+    except:
+        traceback.print_exc()
+        
+        issue_error_dict = {
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_add_issue"
+        }
+
+        emit("add-issue-response", issue_error_dict)
