@@ -1,5 +1,4 @@
 import json
-import simplejson as j
 import traceback
 
 from flask import Blueprint, jsonify
