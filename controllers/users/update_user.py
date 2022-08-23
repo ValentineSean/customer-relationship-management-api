@@ -17,22 +17,32 @@ def update_user():
     role = user["role"]
     
     try:
-        updated_user = User(db_write=True).get(user_id)
+        updated_user = User().get(user_id)
 
         updated_user.first_name = first_name
         updated_user.last_name = last_name
         updated_user.role = role
 
+        user_pk = updated_user.pk
+
         updated_user.save()
 
-        print(f"UPDATED USER: {updated_user}")
+        updated_user_dict = {
+            "pk": user_pk,
+            "first_name": updated_user.first_name,
+            "last_name": updated_user.last_name,
+            "role": updated_user.role,
+            "created_at": updated_user.created_at,
+            "role": updated_user.role,
+        }
 
-        # new_user = User.get(new_user.pk)
+        print(f"UPDATED USER: {updated_user_dict}")
         
         return jsonify({
             "status_code": "200",
             "status": "success",
-            "message": "user_updated_ok"
+            "message": "user_updated_ok",
+            "data": updated_user_dict
         })
 
     except:

@@ -14,6 +14,7 @@ def register_user():
     first_name = user["first_name"]
     last_name = user["last_name"]
     role = user["role"]
+    record_status = "ALIVE"
 
     zone = "Africa/Harare"
     timezone = pytz.timezone(zone)
@@ -28,20 +29,29 @@ def register_user():
             last_name=last_name,
             role=role,
             created_at=created_at,
-            record_status="ALIVE",
-            db_write = True
+            record_status=record_status,
         )
         
-        delattr(new_user, "db_write")
+        # delattr(new_user, "db_write")
+
+        user_pk = new_user.pk
 
         new_user.save()
 
-        # new_user = User.get(new_user.pk)
+        new_user_dict = {
+            "pk": user_pk,
+            "first_name": first_name,
+            "last_name": last_name,
+            "role": role,
+            "created_at": created_at,
+            "record_status": record_status,
+        }
         
         return jsonify({
             "status_code": "200",
             "status": "success",
-            "message": "user_registered_ok"
+            "message": "user_registered_ok",
+            "data": new_user_dict
         })
 
     except:
