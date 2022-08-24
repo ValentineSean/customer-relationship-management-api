@@ -32,7 +32,11 @@ socketio = SocketIO()
 CORS(app)
 
 # EVENTS
+# Queue
 from events.queue import add_issue
+from events.queue import change_issue_status
+
+# Chat
 from events.chat import send_message
 
 # app.config["JWT_SECRET_KEY"] = jwt_secret_key
