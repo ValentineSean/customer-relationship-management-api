@@ -27,7 +27,7 @@ def send_message(message):
     created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
 
     try:
-        new_message = message(
+        new_message = Message(
             issue = issue,
             sender = sender,
             message_body = message_body,
