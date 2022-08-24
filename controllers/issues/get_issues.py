@@ -1,14 +1,21 @@
 import traceback
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from models.issues import Issue
 
 get_issues_blueprint = Blueprint("get_issues_blueprint", __name__)
 
 @get_issues_blueprint.route("/get-issues")
 def get_issues():
+    customer_id = request.args.get("customer_id")
+    issues = []
+
     try:
-        issues = Issue.find(Issue.record_status=="ALIVE").all()
+        if customer_id:
+            issues = Issue.find((Issue.sender==customer_id)&(Issue.record_status=="ALIVE")).all()
+
+        else:
+            issues = Issue.find(Issue.record_status=="ALIVE").all()
 
         issues_list = []
 
