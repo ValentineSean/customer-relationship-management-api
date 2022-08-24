@@ -19,6 +19,7 @@ from controllers.users.update_user import update_user_blueprint
 # Issues
 from controllers.issues.get_issues import get_issues_blueprint
 from controllers.issues.add_issue import add_issue_blueprint
+from controllers.issues.change_issue_status import change_issue_status_blueprint
 
 # Chat
 from controllers.chat.get_messages import get_messages_blueprint
@@ -55,6 +56,7 @@ def create_app():
     # Issues
     app.register_blueprint(get_issues_blueprint)
     app.register_blueprint(add_issue_blueprint)
+    app.register_blueprint(change_issue_status_blueprint)
 
     # Chat
     app.register_blueprint(get_messages_blueprint)

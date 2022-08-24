@@ -51,4 +51,5 @@ def update_user():
             "status_code": "500",
             "status": "error",
             "message": "failed_to_update_user",
+            "data": {},
         })

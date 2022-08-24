@@ -47,23 +47,25 @@ def add_issue(issue):
         new_issue.save()
 
         new_issue_dict = {
+            "pk": issue_pk,
+            "subject": subject,
+            "description": description,
+            "issue_status": issue_status,
+            "sender": sender,
+            "created_at": created_at,
+            "record_status": record_status,
+        }
+
+        new_issue_json = {
             "status_code": "200",
             "status": "success",
             "message": "issue_added_ok",
-            "data": {
-                "pk": issue_pk,
-                "subject": subject,
-                "description": description,
-                "issue_status": issue_status,
-                "sender": sender,
-                "created_at": created_at,
-                "record_status": record_status,
-            }
+            "data": new_issue_dict
         }
 
         print(f"received add issue event")
 
-        socketio.emit("add-issue-response", new_issue_dict)
+        socketio.emit("add-issue-response", new_issue_json)
 
     except:
         traceback.print_exc()
@@ -71,7 +73,8 @@ def add_issue(issue):
         issue_error_dict = {
             "status_code": "500",
             "status": "error",
-            "message": "failed_to_add_issue"
+            "message": "failed_to_add_issue",
+            "data": {},
         }
 
         emit("add-issue-response", issue_error_dict)

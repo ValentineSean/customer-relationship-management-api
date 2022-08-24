@@ -3,18 +3,17 @@ import traceback
 import pytz
 
 from datetime import datetime
-from flask_socketio import emit, join_room, leave_room
-from app import socketio
+from flask import Blueprint, request, jsonify
 from models.issues import Issue
 
-# JSON File
+change_issue_status_blueprint = Blueprint("change_issue_status_blueprint", __name__)
 
-# WEB SOCKET EVENTS
-@socketio.on("change-issue-status")
-def change_issue_status(issue):
+@change_issue_status_blueprint.route("/change-issue-status", methods=["PUT"])
+def change_issue_status():
+    issue = request.json
     issue_id = issue["issue_id"]
     issue_status = issue["issue_status"]
-
+    
     try:
         updated_issue = Issue().get(issue_id)
 
@@ -40,19 +39,19 @@ def change_issue_status(issue):
             "message": "issue_status_changed_ok",
             "data": updated_issue_dict,
         }
-
-        print(f"received change issue status event")
-
-        socketio.emit("change-issue-status-response", updated_issue_json)
+        
+        return jsonify({
+            "status_code": "200",
+            "status": "success",
+            "message": "issue_status_changed_ok",
+            "data": updated_issue_json
+        })
 
     except:
         traceback.print_exc()
-        
-        issue_error_dict = {
+        return jsonify({
             "status_code": "500",
             "status": "error",
             "message": "failed_to_change_issue_status",
             "data": {},
-        }
-
-        emit("change-issue-status-response", issue_error_dict)
+        })
