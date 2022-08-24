@@ -39,6 +39,7 @@ from events.queue import change_issue_status
 
 # Chat
 from events.chat import send_message
+from events.chat import join_room
 
 # app.config["JWT_SECRET_KEY"] = jwt_secret_key
 # app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 604800
