@@ -29,7 +29,8 @@ socketio = SocketIO()
 CORS(app)
 
 # EVENTS
-from events import queuing_events
+from events.queue import add_issue
+from events.chat import send_message
 
 # app.config["JWT_SECRET_KEY"] = jwt_secret_key
 # app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 604800
