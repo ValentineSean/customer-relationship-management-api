@@ -1,4 +1,5 @@
 import json
+from ntpath import join
 import traceback
 import pytz
 
@@ -34,7 +35,9 @@ def on_join_room(user):
             "data": user
         }
 
-        socketio.emit("join-room-response", join_room)
+        print(join_room_success)
+
+        socketio.emit("join-room-response", join_room_success)
 
     except:
         traceback.print_exc()
