@@ -3,7 +3,7 @@ import traceback
 import pytz
 
 from datetime import datetime
-from flask_socketio import send, leave_room
+from flask_socketio import send, leave_room, emit
 from app import socketio
 # from models.messages import Message
 
@@ -25,9 +25,25 @@ def on_leave_room(user):
 
         # socketio.emit("receive-message", new_message_dict)
 
-        send(f"{first_name} {last_name} has left the room.", to=issue_id)
+        # send(f"{first_name} {last_name} has left the room.", to=issue_id)
+
+        leave_room_success = {
+            "status_code": "200",
+            "status": "success",
+            "message": "room_left_ok",
+            "data": user
+        }
+
+        socketio.emit("leave-room-response", leave_room_success)
 
     except:
         traceback.print_exc()
 
-        # emit("receive-message", message_error_dict)
+        join_room_error = {
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_leave_room",
+            "data": user
+        }
+
+        emit("leave-room-response", join_room_error)

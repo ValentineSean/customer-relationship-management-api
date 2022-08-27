@@ -3,7 +3,7 @@ import traceback
 import pytz
 
 from datetime import datetime
-from flask_socketio import send, join_room
+from flask_socketio import send, join_room, emit
 from app import socketio
 # from models.messages import Message
 
@@ -25,9 +25,25 @@ def on_join_room(user):
 
         # socketio.emit("receive-message", new_message_dict)
 
-        send(f"{first_name} {last_name} has entered the room.", to=issue_id)
+        # send(f"{first_name} {last_name} has entered the room.", to=issue_id)
+
+        join_room_success = {
+            "status_code": "200",
+            "status": "success",
+            "message": "room_joined_ok",
+            "data": user
+        }
+
+        socketio.emit("join-room-response", join_room)
 
     except:
         traceback.print_exc()
 
-        # emit("receive-message", message_error_dict)
+        join_room_error = {
+            "status_code": "500",
+            "status": "error",
+            "message": "failed_to_join_room",
+            "data": user
+        }
+
+        emit("join-room-response", join_room_error)
