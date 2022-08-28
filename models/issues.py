@@ -1,7 +1,7 @@
-from redis_om import JsonModel, Migrator, Field
+from redis_om import JsonModel, Migrator, Field, EmbeddedJsonModel
 from typing import Optional
 
-class Issue(JsonModel):
+class Issue(EmbeddedJsonModel, JsonModel):
     subject: Optional[Optional[str]] = Field(index=True)
     description: Optional[str] = Field(index=True)
     issue_status: Optional[str] = Field(index=True)

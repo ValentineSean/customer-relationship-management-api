@@ -15,6 +15,8 @@ from models.messages import Message
 def send_message(message):
     issue = message["issue"]
     sender = message["sender"]
+    issue_data = message["issue_data"]
+    sender_data = message["sender_data"]
     message_body = message["message_body"]
     message_status = "SENT"
     record_status = "ALIVE"
@@ -26,10 +28,15 @@ def send_message(message):
     created_at = created_at_naive.astimezone(timezone)
     created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
 
+    issue_data["pk"] = issue
+    sender_data["pk"] = sender
+
     try:
         new_message = Message(
             issue = issue,
             sender = sender,
+            issue_data = issue_data,
+            sender_data = sender_data,
             message_body = message_body,
             message_status = message_status,
             created_at = created_at,
