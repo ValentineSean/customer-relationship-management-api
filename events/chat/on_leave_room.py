@@ -34,6 +34,7 @@ def on_leave_room(user):
             "data": user
         }
 
+        emit("leave-room-response-one", leave_room_success)
         socketio.emit("leave-room-response", leave_room_success)
 
     except:

@@ -59,7 +59,8 @@ def send_message(message):
 
         print(f"received send message event")
 
-        emit("receive-message", new_message_dict, room=issue)
+        # socketio.emit("receive-message", new_message_dict, room=issue)
+        socketio.emit("receive-message", new_message_dict)
 
     except:
         traceback.print_exc()

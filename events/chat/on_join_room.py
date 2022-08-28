@@ -37,6 +37,7 @@ def on_join_room(user):
 
         print(join_room_success)
 
+        emit("join-room-response-one", join_room_success)
         socketio.emit("join-room-response", join_room_success)
 
     except:

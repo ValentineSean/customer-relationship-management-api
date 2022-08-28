@@ -1,7 +1,7 @@
-from redis_om import JsonModel, Migrator, Field
+from redis_om import JsonModel, Migrator, Field, EmbeddedJsonModel
 from typing import Optional
 
-class User(JsonModel):
+class User(EmbeddedJsonModel, JsonModel):
     first_name: Optional[str] = Field(index=True)
     last_name: Optional[str] = Field(index=True)
     role: Optional[str] = Field(index=True)
