@@ -13,12 +13,13 @@ from models.issues import Issue
 @socketio.on("change-issue-status")
 def change_issue_status(issue):
     issue_id = issue["issue_id"]
-    issue_status = issue["issue_status"]
+    old_issue_status = issue["old_issue_status"]
+    new_issue_status = issue["new_issue_status"]
 
     try:
         updated_issue = Issue().get(issue_id)
 
-        updated_issue.issue_status = issue_status
+        updated_issue.issue_status = new_issue_status
 
         issue_pk = updated_issue.pk
 
@@ -29,7 +30,8 @@ def change_issue_status(issue):
             "sender": updated_issue.sender,
             "subject": updated_issue.subject,
             "description": updated_issue.description,
-            "issue_status": updated_issue.issue_status,
+            "old_issue_status": updated_issue.old_issue_status,
+            "new_issue_status": updated_issue.new_issue_status,
             "created_at": updated_issue.created_at,
             "record_status": updated_issue.record_status,
         }
