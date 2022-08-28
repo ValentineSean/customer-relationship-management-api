@@ -24,6 +24,9 @@ from controllers.issues.change_issue_status import change_issue_status_blueprint
 # Chat
 from controllers.chat.get_messages import get_messages_blueprint
 
+# Dashboard
+from controllers.dashboard.get_dashboard import get_dashboard_blueprint
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "tjudiol!mèlkrif"
 
@@ -62,6 +65,9 @@ def create_app():
 
     # Chat
     app.register_blueprint(get_messages_blueprint)
+
+    # Dashboard
+    app.register_blueprint(get_dashboard_blueprint)
 
     socketio.init_app(app, cors_allowed_origins="*")
 
