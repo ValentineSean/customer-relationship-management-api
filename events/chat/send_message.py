@@ -57,6 +57,8 @@ def send_message(message):
                 "pk": message_pk,
                 "issue": issue,
                 "sender": sender,
+                "issue_data": issue_data,
+                "sender_data": sender_data,
                 "message_body": message_body,
                 "message_status": message_status,
                 "created_at": created_at,
