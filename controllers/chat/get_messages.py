@@ -14,11 +14,27 @@ def get_messages():
 
         messages_list = []
 
+        sender_data = {}
+        issue_data = {}
+
+        # JSONIFY REDIS DATA RESPONSE
         for message in messages:
             message_dict = {}
             
             for x in message:
                 message_dict[x[0]] = x[1]
+
+            # JSONIFY SENDER DATA IN MESSAGE
+            for i in message_dict["sender_data"]:
+                sender_data[i[0]] = i[1]
+
+            message_dict["sender_data"] = sender_data
+
+            # JSONIFY ISSUE DATA IN MESSAGE
+            for i in message_dict["issue_data"]:
+                issue_data[i[0]] = i[1]
+
+            message_dict["issue_data"] = issue_data
                 
             messages_list.append(message_dict)
         
