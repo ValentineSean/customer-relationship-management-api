@@ -53,6 +53,9 @@ def get_issues():
                 issue_dict[x[0]] = x[1]
                 
             issues_list.append(issue_dict)
+
+        for l in issues_list:
+            print(f"ISSUE DATE: {l['created_at']}")
         
         return jsonify({
             "status_code": "200",
