@@ -33,8 +33,6 @@ def add_issue():
             record_status=record_status,
         )
 
-        # delattr(new_issue, "db_write")
-
         issue_pk = new_issue.pk
 
         new_issue.save()
@@ -48,8 +46,6 @@ def add_issue():
             "created_at": created_at,
             "record_status": record_status,
         }
-
-        # new_issue = Issue.get(new_issue.pk)
 
         return jsonify({
             "status_code": "200",

@@ -1,17 +1,9 @@
-import json
-from ntpath import join
 import traceback
-import pytz
 
-from datetime import datetime
-from flask_socketio import send, join_room, emit
+from flask_socketio import join_room, emit
 from app import socketio
-# from models.messages import Message
 
-# JSON File
-
-# SEND MESSAGE EVENTS
-
+# JOIN ROOM EVENTS
 @socketio.on("join-room")
 def on_join_room(user):
     # user_id = user["user_id"]

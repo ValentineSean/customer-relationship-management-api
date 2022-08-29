@@ -1,15 +1,10 @@
-import json
 import traceback
-import pytz
 
-from datetime import datetime
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit
 from app import socketio
 from models.issues import Issue
 
-# JSON File
-
-# WEB SOCKET EVENTS
+# CHANGE ISSUE STATUS EVENTS
 @socketio.on("change-issue-status")
 def change_issue_status(issue):
     issue_id = issue["issue_id"]

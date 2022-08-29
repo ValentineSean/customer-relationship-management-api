@@ -1,20 +1,12 @@
-import json
 import traceback
 import pytz
 
 from datetime import datetime
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit
 from app import socketio
 from models.issues import Issue
 
-# JSON File
-
-# WEB SOCKET EVENTS
-@socketio.on("get-issues")
-def get_issues():
-    print(f"received get issues event")
-    emit("get-issues-response", {})
-
+# ADD ISSUE EVENTS
 @socketio.on("add-issue")
 def add_issue(issue):
     subject = issue["subject"]

@@ -1,16 +1,8 @@
-import json
 import traceback
-import pytz
-
-from datetime import datetime
-from flask_socketio import send, leave_room, emit
+from flask_socketio import leave_room, emit
 from app import socketio
-# from models.messages import Message
 
-# JSON File
-
-# SEND MESSAGE EVENTS
-
+# LEAVE ROOM EVENTS
 @socketio.on("leave-room")
 def on_leave_room(user):
     # user_id = user["user_id"]

@@ -1,16 +1,12 @@
-import json
 import traceback
 import pytz
 
 from datetime import datetime
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit
 from app import socketio
 from models.messages import Message
 
-# JSON File
-
 # SEND MESSAGE EVENTS
-
 @socketio.on("send-message")
 def send_message(message):
     issue = message["issue"]
