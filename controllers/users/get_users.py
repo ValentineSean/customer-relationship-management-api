@@ -4,7 +4,6 @@ import traceback
 from flask import Blueprint, jsonify
 from bson.json_util import dumps
 from models.users import User
-from config.database import redis_client_three
 
 get_users_blueprint = Blueprint("get_users_blueprint", __name__)
 
@@ -12,7 +11,6 @@ get_users_blueprint = Blueprint("get_users_blueprint", __name__)
 def get_users():
     try:
         users = User.find(User.record_status=="ALIVE").all()
-        # users = j.dumps(users, iterable_as_array=True)
         users_list = []
 
         for user in users:

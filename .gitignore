@@ -1,4 +1,5 @@
 myenv
 .env
+.config
 __pycache__
 my_file.json

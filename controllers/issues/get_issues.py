@@ -55,7 +55,7 @@ def get_issues():
                 
             issues_list.append(issue_dict)
 
-        issues_list = sorted(issues_list, key=lambda x: dt.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+        issues_list = sorted(issues_list, key=lambda x: dt.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'))
         
         return jsonify({
             "status_code": "200",

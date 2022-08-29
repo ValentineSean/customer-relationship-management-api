@@ -2,10 +2,6 @@ from flask import Flask, jsonify
 from flask_socketio import SocketIO
 from flask_cors import CORS
 
-# CONFIGURATIONS
-# from ..config.security import jwt
-# from ..config.security import jwt_secret_key
-
 # BLUEPRINTS
 
 # Auth
