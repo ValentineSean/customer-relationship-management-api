@@ -1,5 +1,7 @@
 import traceback
 
+from datetime import datetime as dt
+from pprint import pprint
 from flask import Blueprint, jsonify, request
 from models.issues import Issue
 
@@ -54,8 +56,16 @@ def get_issues():
                 
             issues_list.append(issue_dict)
 
-        for l in issues_list:
-            print(f"ISSUE DATE: {l['created_at']}")
+        # pprint(issues_list)
+
+        # print("="*100)
+        # print("="*100)
+
+        # for l in issues_list:
+        #     print(f"ISSUE DATE: {type(l['created_at'])} || CONVERTED: {type(dt.strptime(l['created_at'], '%Y-%m-%d %H:%M:%S'))}")
+
+        issues_list = sorted(issues_list, key=lambda x: dt.strptime(x['created_at'], '%Y-%m-%d %H:%M:%S'), reverse=True)
+        # pprint(issues_list)
         
         return jsonify({
             "status_code": "200",
