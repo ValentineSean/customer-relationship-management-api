@@ -31,7 +31,7 @@ def change_issue_status(issue):
             "subject": updated_issue.subject,
             "description": updated_issue.description,
             "old_issue_status": old_issue_status,
-            "new_issue_status": updated_issue.new_issue_status,
+            "new_issue_status": updated_issue.issue_status,
             "created_at": updated_issue.created_at,
             "record_status": updated_issue.record_status,
         }
